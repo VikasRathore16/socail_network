@@ -1,0 +1,33 @@
+<?php
+print_r($users[0]->email);
+foreach ($users as $user) {
+    print_r($user->user_id);
+    print_r($user->email);
+}
+?>
+<h2>Edit</h2>
+
+<?php echo $this->tag->form("index/update"); ?>
+
+<p><?php echo $this->tag->hiddenField(["id", "value" => $users[0]->user_id,]); ?>
+    <label for="name">Name</label>
+    <?php echo $this->tag->textField(["name", "value" => $users[0]->name]); ?>
+</p>
+
+<p>
+    <label for="email">E-Mail</label>
+    <?php echo $this->tag->textField(["email", "value" => $users[0]->email]); ?>
+</p>
+
+
+
+<p>
+    <?php echo $this->tag->submitButton("update"); ?>
+</p>
+
+</form>
+
+<?php
+
+// print_r($data);
+?>

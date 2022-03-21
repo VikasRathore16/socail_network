@@ -1,0 +1,64 @@
+<body class='text-center'>
+<h2 class = 'row mb-5'>Sign up</h2>
+
+<?php echo $this->tag->form(["signup/register",'class' => 'form justify-content ']); ?>
+<div class="row">
+<div class="col-3"></div>
+<div class="col-6">
+<p>
+    <label for="name" class="form-label">Full Name</label>
+    <?php echo $this->tag->textField(["name",'class' => 'form-control']); ?>
+</p>
+
+<p>
+    <label for="email">E-Mail</label>
+    <?php echo $this->tag->textField(["email",'class' => 'form-control']); ?>
+</p>
+<p>
+    <label for="username">Username</label>
+    <?php echo $this->tag->textField(["username",'class' => 'form-control']); ?>
+</p>
+
+<p>
+    <label for="mobile">Mobile</label>
+    <?php echo $this->tag->numericField(["mobile",'class' =>'form-control']); ?>
+</p>
+
+<p>
+    <label for="city">City</label>
+    <?php echo $this->tag->textField(["city",'class' => 'form-control']); ?>
+</p>
+
+<p>
+    <label for="country">Country</label>
+    <?php echo $this->tag->textField(["country",'class' => 'form-control']); ?>
+</p>
+
+<p>
+    <label for="pincode">Pincode</label>
+    <?php echo $this->tag->textField(["pincode",'class' => 'form-control']); ?>
+</p>
+<p>
+    <label for="email">Password</label>
+    <?php echo $this->tag->textField(["password",'class' => 'form-control']); ?>
+</p>
+<p>
+    <label for="email">Alredy User ?</label>
+    <?php echo $this->tag->linkTo("login/","Login"); ?>
+</p>
+<p>
+    <?php echo $this->tag->submitButton(["Register",'class' => 'btn btn-primary']); ?>
+</p>
+
+</div>
+<div class="col-3"></div>
+</div>
+</form>
+</body>
+
+<?php
+
+// print_r($data);
+?>
+
+
