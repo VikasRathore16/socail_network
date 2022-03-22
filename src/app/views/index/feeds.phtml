@@ -64,7 +64,7 @@ print_r($currentUser[0]->username);
     <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-4 pt-1">
-                <a class="link-secondary" href="#"></a>
+                <a class="link-secondary" href="http://localhost:8080/friend?user_id=<?php echo $currentUser[0]->user_id?>">Add Friend</a>
             </div>
             <div class="col-4 text-center h2">
                 CEDBOOK
@@ -130,8 +130,8 @@ print_r($currentUser[0]->username);
                                 <a href="http://localhost:8080/index/like?post_id=<?php echo $post->post_id; ?>&user_id=<?php echo $currentUser[0]->user_id ?>" class="btn btn-primary">Like
                                     <span class="badge badge-danger "><?php echo $post->likes ?></span>
                                 </a>
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#demo<?php echo $post->post_id ?>">Comments
-                                    <span class="badge badge-danger "><?php echo count($comments) ?></span>
+                                <button type="button" class="btn btn-secondary " data-bs-toggle="collapse" data-bs-target="#demo<?php echo $post->post_id ?>">Comments
+                                   
                                 </button>
 
 
@@ -141,16 +141,34 @@ print_r($currentUser[0]->username);
                                     <?php echo $this->tag->hiddenField(["username", "value" => $currentUser[0]->username,]); ?>
                                     <?php echo $this->tag->hiddenField(["post_user_id", "value" => $post->post_id,]); ?>
                                     <?php echo $this->tag->textField(["comment", 'class' => 'form-control']); ?>
-                                    <?php echo $this->tag->submitButton(["comment", 'class' => 'btn btn-primary mt-2 mb-2']); ?>
+                                    <?php echo $this->tag->submitButton(["Reply", 'class' => 'btn btn-primary mt-2 mb-2 float-end me-2']); ?>
                                     <?php foreach ($comments as $comment) {
+                                        
                                         if ($comment->comment_post_id == $post->post_id) {
-                                            echo "<div class='row container border '>
+                                            
+                                            echo "<div class='row container'>
+                                            <div class='col-2 ms-4 mt-2 pt-2 pb-2 me-1'>
+                                                 <svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' fill='currentColor' class='bi bi-person-circle' viewBox='0 0 16 16'>
+                                                <path d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'/>
+                                                <path fill-rule='evenodd' d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z'/>
+                                                </svg>
+                                               
+                                            </div>
+                                            <div class='col-9 mt-3 me-2'>
+                                            <div class='row h4 text-secondary'>
+                                            $comment->username 
+                                            </div>
+                                            <div class='row'>
                                             $comment->comment
+                                            </div>
+                                           
+                                            </div>
+                                            
                                             </div>
                                             <br>";
                                         }
                                     }
-                                     ?>
+                                    ?>
 
                                     <?php echo $this->tag->endform(); ?>
                                 </div>
