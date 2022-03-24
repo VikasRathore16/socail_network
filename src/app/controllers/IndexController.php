@@ -12,11 +12,42 @@ class IndexController extends Controller
     public function feedsAction()
     {
         $user_id = $_GET['user_id'];
-        echo "user_id: " . $user_id;
-        $this->view->currentUser = Users::find($user_id);
-        $this->view->posts = Posts::find();
-        $this->view->comments = Comments::find();
-        $this->view->users = Users::find();
+        $value = $_GET['value'];
+        // echo $value;
+
+        if ($value == 'my-feed') {
+            // echo $value;
+
+            $this->view->currentUser = Users::find($user_id);
+            $postArr = array();
+            $posts =  Posts::find("post_user_id = " . $this->view->currentUser[0]->user_id . "");
+            print_r(count($posts));
+            foreach ($posts as $post){
+                array_push($postArr, $post);
+            }
+           
+            $this->view->posts = $postArr;
+             print_r($this->view->currentUser[0]);
+            print_r($this->view->posts[0]);
+             die();
+        } else {
+
+            $this->view->currentUser = Users::find($user_id);
+            $currentUser = $this->view->currentUser;
+            $friendsArr = array();
+            $postArr = array();
+            foreach (json_decode($currentUser[0]->friends) as $key => $friend) {
+                print_r($key);
+                $userfriend = Users::find($key);
+                $post = Posts::find("post_user_id = " . $key . "");
+                // $comment = Comments::find("comment_user_id = " . $key . "");
+                array_push($friendsArr, $userfriend);
+                array_push($postArr, $post);
+            }
+            $this->view->users = $friendsArr;
+            $this->view->posts = $postArr;
+            $this->view->comments = Comments::find();
+        }
     }
 
     public function newpostAction()
@@ -29,6 +60,7 @@ class IndexController extends Controller
             $this->request->getPost(),
             [
                 'post_user_id',
+                'post_username',
                 'title',
                 'description',
                 'file_path'
@@ -75,7 +107,7 @@ class IndexController extends Controller
         $newcomment->comment_post_id = $post_user_id;
         $newcomment->username = $username;
         $newcomment->comment = $comment;
-        $newcomment->assign([$user_id, $post_user_id, $comment,$username]);
+        $newcomment->assign([$user_id, $post_user_id, $comment, $username]);
         // print_r($newcomment);
         $newcomment->save();
         header("Location: http://localhost:8080/index/feeds?user_id=" . $user_id);
