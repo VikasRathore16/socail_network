@@ -21,7 +21,7 @@ class FriendController extends Controller
         $this->view->currentUser = Users::find($id);
         $this->view->user = Users::find($user_id);
         $username = $this->view->user[0]->username;
-        $_SESSION['friends'][$user_id] = $username;
+        $_SESSION['friends'][$user_id] = ['name' => $username ,'status' => 'unmute'];
         $this->view->currentUser[0]->friends =  json_encode($_SESSION['friends']);
         // "{friend : { $user_id : $username }}";
         $this->view->currentUser[0]->save();

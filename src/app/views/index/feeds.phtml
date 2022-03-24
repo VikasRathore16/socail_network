@@ -1,8 +1,8 @@
 <?php
 // $user_id = $_GET['user_id'];
 print_r($currentUser[0]->username);
-
-
+print_r(json_decode($currentUser[0]->friends));
+print_r(($currentUser[0]->friends));
 ?>
 
 <!doctype html>
@@ -77,7 +77,7 @@ print_r($currentUser[0]->username);
                         <path d="M21 21l-5.2-5.2" />
                     </svg>
                 </a>
-                <?php echo $this->tag->linkTo(["login/signout", "Sign Out", 'class' => 'btn btn-secondary p-5']); ?>
+                <?php echo $this->tag->linkTo(["login/signout", "Sign Out", 'class' => 'btn btn-secondary ']); ?>
             </div>
         </div>
     </header>
@@ -182,8 +182,29 @@ print_r($currentUser[0]->username);
             <div class="col-md-4">
                 <div class="position-sticky" style="top: 2rem;">
                     <div class="p-4 mb-3 bg-light rounded">
-                        <h4 class="fst-italic">About</h4>
-                        <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+                        <h4 class="fst-italic">My Friends</h4>
+                        <?php if(isset($currentUser[0]->friends)){
+                            $html ='';
+                            foreach (json_decode($currentUser[0]->friends) as $key => $friend){
+
+                                $html .="<div class='row mb-0 text-primary'><p class='d-flex justify-content-between'>$friend->name";
+                                
+                                 if($friend->status == 'mute'){
+                                 $html.="<button class='btn w-50 btn-danger unmute' > Unmute</button>";
+                                }
+                                else{
+                                $html.= "<button class='btn w-30 py-0 btn-success mute'> Mute</button>";
+
+                                }
+                                $html.="</p></div>";
+                                
+                                // print_r($friend);
+                                // echo "<br>";
+                                //  print_r(((($friend))));
+                            }
+                            echo $html;
+                        } ?>
+                        <!-- <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p> -->
                     </div>
                 </div>
             </div>
@@ -200,5 +221,6 @@ print_r($currentUser[0]->username);
 
 
 </body>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../../../public/js/friend.js"></script>
 </html>
